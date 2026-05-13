@@ -85,7 +85,7 @@ Standard::Standard(double radius, double speed, int points) : Bird()
    this->radius = radius;
 
    // get the concrete strategy to be stored
-   pDraw = pDraw->drawFactory(STANDARD);
+   pDraw = Draw::drawFactory(STANDARD);
 }
 
 /******************************************************************
@@ -107,7 +107,7 @@ Floater::Floater(double radius, double speed, int points) : Bird()
    // set the size
    this->radius = radius;
 
-   pDraw = pDraw->drawFactory(FLOATER);
+   pDraw = Draw::drawFactory(FLOATER);
 }
 
 /******************************************************************
@@ -129,7 +129,7 @@ Sinker::Sinker(double radius, double speed, int points) : Bird()
    // set the size
    this->radius = radius;
 
-   pDraw = pDraw->drawFactory(SINKER);
+   pDraw = Draw::drawFactory(SINKER);
 }
 
 /******************************************************************
@@ -151,7 +151,7 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
    // set the size
    this->radius = radius;
 
-   pDraw = pDraw->drawFactory(CRAZY);
+   pDraw = Draw::drawFactory(CRAZY);
 }
 
  /***************************************************************/
