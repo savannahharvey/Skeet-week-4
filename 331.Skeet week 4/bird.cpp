@@ -283,6 +283,33 @@ void drawDisk(const Position& center, double radius,
    glEnd();
 }
 
+void DrawStandard::draw(const Bird* b)
+{
+   if (!b->isDead())
+   {
+      drawDisk(b->getPosition(), b->getRadius() - 0.0, 1.0, 1.0, 1.0); // white outline
+      drawDisk(b->getPosition(), b->getRadius() -3.0, 0.0, 0.0, 1.0); // blue center
+   }
+}
+
+class DrawFloater : public Draw
+{
+public:
+   void draw(const Bird* b);
+};
+
+class DrawSinker : public Draw
+{
+public:
+   void draw(const Bird* b);
+};
+
+class DrawCrazy : public Draw
+{
+public:
+   void draw(const Bird* b);
+};
+
 /*********************************************
  * STANDARD DRAW
  * Draw a standard bird: blue center and white outline
@@ -336,4 +363,26 @@ void Sinker::draw()
       drawDisk(pt, radius - 0.0, 0.0, 0.0, 0.8);
       drawDisk(pt, radius - 4.0, 0.0, 0.0, 0.0);
    }
+}
+
+/*********************************************
+ * DRAW FACTORY
+ * Factory function to draw birds based on BirdType
+ *********************************************/
+Draw* Draw::drawFactory(BirdType type)
+{
+   switch (type)
+   {
+   case STANDARD:
+      return new DrawStandard;
+   case FLOATER:
+      return new DrawFloater;
+   case SINKER:
+      return new DrawSinker;
+   case CRAZY:
+      return new DrawCrazy;
+   }
+
+   assert(false);
+   return nullptr;
 }

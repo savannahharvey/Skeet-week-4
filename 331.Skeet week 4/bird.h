@@ -10,6 +10,57 @@
 #pragma once
 #include "position.h"
 
+enum BirdType
+{
+   STANDARD,
+   FLOATER,
+   SINKER,
+   CRAZY
+};
+
+class Bird;
+
+/*********************************************
+ * DRAW
+ * Abstract Strategy
+ *********************************************/
+class Draw
+{
+public:
+   static Draw* drawFactory(BirdType type);
+   virtual void draw(const Bird* b) = 0;
+};
+
+/***************************************************************/
+/***************************************************************/
+/*                     Concrete Strategies                     */
+/***************************************************************/
+/***************************************************************/
+
+class DrawStandard : public Draw
+{
+public:
+   void draw(const Bird* b);
+};
+
+class DrawFloater : public Draw
+{
+public:
+   void draw(const Bird* b);
+};
+
+class DrawSinker : public Draw
+{
+public:
+   void draw(const Bird* b);
+};
+
+class DrawCrazy : public Draw
+{
+public:
+   void draw(const Bird* b);
+};
+
 /**********************
  * BIRD
  * Everything that can be shot
@@ -23,6 +74,7 @@ protected:
    double radius;             // the size (radius) of the flyer
    bool dead;                 // is this flyer dead?
    int points;                // how many points is this worth?
+   Draw* pDraw;
    
 public:
    Bird() : dead(false), points(0), radius(1.0) { }
@@ -46,7 +98,7 @@ public:
    }
 
    // special functions
-   virtual void draw() = 0;
+   void drawBird() { pDraw->draw(this); }
    virtual void advance() = 0;
 };
 
