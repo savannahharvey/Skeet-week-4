@@ -48,6 +48,7 @@ public:
    // special functions
    virtual void draw() = 0;
    void advance();
+private:
    virtual void alterVelocity() = 0;
    virtual void applyInertia() { pt.add(v); }
    void removeOutOfBounds()
@@ -69,6 +70,7 @@ class Standard : public Bird
 public:
     Standard(double radius = 25.0, double speed = 5.0, int points = 10);
     void draw();
+private:
     void alterVelocity() override;
 };
 
@@ -81,6 +83,7 @@ class Floater : public Bird
 public:
     Floater(double radius = 30.0, double speed = 5.0, int points = 15);
     void draw();
+private:
     void alterVelocity() override;
     void applyInertia() override;
 };
@@ -94,6 +97,7 @@ class Crazy : public Bird
 public:
     Crazy(double radius = 30.0, double speed = 4.5, int points = 30);
     void draw();
+private:
     void alterVelocity() override;
 };
 
@@ -106,5 +110,6 @@ class Sinker : public Bird
 public:
     Sinker(double radius = 30.0, double speed = 4.5, int points = 20);
     void draw();
+private:
     void alterVelocity() override;
 };
