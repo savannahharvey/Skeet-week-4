@@ -83,6 +83,9 @@ Standard::Standard(double radius, double speed, int points) : Bird()
 
    // set the size
    this->radius = radius;
+
+   // get the concrete strategy to be stored
+   pDraw = pDraw->drawFactory(STANDARD);
 }
 
 /******************************************************************
@@ -103,6 +106,8 @@ Floater::Floater(double radius, double speed, int points) : Bird()
 
    // set the size
    this->radius = radius;
+
+   pDraw = pDraw->drawFactory(FLOATER);
 }
 
 /******************************************************************
@@ -123,6 +128,8 @@ Sinker::Sinker(double radius, double speed, int points) : Bird()
 
    // set the size
    this->radius = radius;
+
+   pDraw = pDraw->drawFactory(SINKER);
 }
 
 /******************************************************************
@@ -143,6 +150,8 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
 
    // set the size
    this->radius = radius;
+
+   pDraw = pDraw->drawFactory(CRAZY);
 }
 
  /***************************************************************/
@@ -283,6 +292,10 @@ void drawDisk(const Position& center, double radius,
    glEnd();
 }
 
+/*********************************************
+ * STANDARD DRAW
+ * Draw a standard bird: blue center and white outline
+ *********************************************/
 void DrawStandard::draw(const Bird* b)
 {
    if (!b->isDead())
@@ -292,63 +305,16 @@ void DrawStandard::draw(const Bird* b)
    }
 }
 
-class DrawFloater : public Draw
-{
-public:
-   void draw(const Bird* b);
-};
-
-class DrawSinker : public Draw
-{
-public:
-   void draw(const Bird* b);
-};
-
-class DrawCrazy : public Draw
-{
-public:
-   void draw(const Bird* b);
-};
-
-/*********************************************
- * STANDARD DRAW
- * Draw a standard bird: blue center and white outline
- *********************************************/
-void Standard::draw()
-{
-   if (!isDead())
-   {
-      drawDisk(pt, radius - 0.0, 1.0, 1.0, 1.0); // white outline
-      drawDisk(pt, radius - 3.0, 0.0, 0.0, 1.0); // blue center
-   }
-}
-
 /*********************************************
  * FLOATER DRAW
  * Draw a floating bird: white center and blue outline
  *********************************************/
-void Floater::draw()
+void DrawFloater::draw(const Bird* b)
 {
-   if (!isDead())
+   if (!b->isDead())
    {
-      drawDisk(pt, radius - 0.0, 0.0, 0.0, 1.0); // blue outline
-      drawDisk(pt, radius - 4.0, 1.0, 1.0, 1.0); // white center
-   }
-}
-
-/*********************************************
- * CRAZY DRAW
- * Draw a crazy bird: concentric circles in a course gradient
- *********************************************/
-void Crazy::draw()
-{
-   if (!isDead())
-   {
-      drawDisk(pt, radius * 1.0, 0.0, 0.0, 1.0); // bright blue outside
-      drawDisk(pt, radius * 0.8, 0.2, 0.2, 1.0);
-      drawDisk(pt, radius * 0.6, 0.4, 0.4, 1.0);
-      drawDisk(pt, radius * 0.4, 0.6, 0.6, 1.0);
-      drawDisk(pt, radius * 0.2, 0.8, 0.8, 1.0); // almost white inside
+      drawDisk(b->getPosition(), b->getRadius() - 0.0, 0.0, 0.0, 1.0); // blue outline
+      drawDisk(b->getPosition(), b->getRadius() - 4.0, 1.0, 1.0, 1.0); // white center
    }
 }
 
@@ -356,12 +322,28 @@ void Crazy::draw()
  * SINKER DRAW
  * Draw a sinker bird: black center and dark blue outline
  *********************************************/
-void Sinker::draw()
+void DrawSinker::draw(const Bird* b)
 {
-   if (!isDead())
+   if (!b->isDead())
    {
-      drawDisk(pt, radius - 0.0, 0.0, 0.0, 0.8);
-      drawDisk(pt, radius - 4.0, 0.0, 0.0, 0.0);
+      drawDisk(b->getPosition(), b->getRadius() - 0.0, 0.0, 0.0, 0.8);
+      drawDisk(b->getPosition(), b->getRadius() - 4.0, 0.0, 0.0, 0.0);
+   }
+}
+
+/*********************************************
+ * CRAZY DRAW
+ * Draw a crazy bird: concentric circles in a course gradient
+ *********************************************/
+void DrawCrazy::draw(const Bird* b)
+{
+   if (!b->isDead())
+   {
+      drawDisk(b->getPosition(), b->getRadius() * 1.0, 0.0, 0.0, 1.0); // bright blue outside
+      drawDisk(b->getPosition(), b->getRadius() * 0.8, 0.2, 0.2, 1.0);
+      drawDisk(b->getPosition(), b->getRadius() * 0.6, 0.4, 0.4, 1.0);
+      drawDisk(b->getPosition(), b->getRadius() * 0.4, 0.6, 0.6, 1.0);
+      drawDisk(b->getPosition(), b->getRadius() * 0.2, 0.8, 0.8, 1.0); // almost white inside
    }
 }
 

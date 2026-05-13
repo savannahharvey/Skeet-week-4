@@ -310,7 +310,6 @@ void Skeet::drawLevel() const
    for (auto bullet : bullets)
       bullet->output();
    for (auto element : birds)
-      // element->draw();
       element->drawBird();
    
    // status
