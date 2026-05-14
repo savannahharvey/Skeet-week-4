@@ -153,7 +153,7 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
 
 /*********************************************
 * ADVANCE
-* Template method that calls the various bird's physics methods
+* Template method that calls the various birds' physics methods
 *********************************************/
 void Bird::advance()
 {
