@@ -70,6 +70,10 @@ double randomFloat(double min, double max)
  ******************************************************************/
 Standard::Standard(double radius, double speed, int points) : Bird()
 {
+	// Add impulses for inertia and drag
+	impulses.push_back(new ApplyInertia());
+	impulses.push_back(new ApplyDrag());
+
    // set the position: standard birds start from the middle
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
    pt.setX(0.0);
@@ -90,6 +94,12 @@ Standard::Standard(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Floater::Floater(double radius, double speed, int points) : Bird()
 {
+	// Add impulses for bouyancy and drag
+	impulses.push_back(new ApplyBouyancy());
+	impulses.push_back(new ApplyDrag());
+   impulses.push_back(new ApplyDrag());
+	impulses.push_back(new ApplyInertia());
+   
    // floaters start on the lower part of the screen because they go up with time
    pt.setY(randomFloat(dimensions.getY() * 0.01, dimensions.getY() * 0.5));
    pt.setX(0.0);
@@ -110,6 +120,10 @@ Floater::Floater(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Sinker::Sinker(double radius, double speed, int points) : Bird()
 {
+	// Add impulse for gravity
+	impulses.push_back(new ApplyGravity());
+	impulses.push_back(new ApplyInertia());
+
    // sinkers start on the upper part of the screen because they go down with time
    pt.setY(randomFloat(dimensions.getY() * 0.50, dimensions.getY() * 0.95));
    pt.setX(0.0);
@@ -130,6 +144,11 @@ Sinker::Sinker(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Crazy::Crazy(double radius, double speed, int points) : Bird()
 {
+	// Add impulse for inertia
+	impulses.push_back(new ApplyInertia());
+	impulses.push_back(new ApplyTurn());
+   
+   
    // crazy birds start in the middle and can go any which way
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
    pt.setX(0.0);
@@ -157,17 +176,22 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
  *********************************************/
 void Standard::advance()
 {
-   // small amount of drag
-   v *= 0.995;
+   //// small amount of drag
+   //v *= 0.995;
 
-   // inertia
-   pt.add(v);
+   //// inertia
+   //pt.add(v);
 
-   // out of bounds checker
-   if (isOutOfBounds())
+   //// out of bounds checker
+   //if (isOutOfBounds())
+   //{
+   //   kill();
+   //   points *= -1; // points go negative when it is missed!
+   //}
+
+   for (auto impulse : impulses)
    {
-      kill();
-      points *= -1; // points go negative when it is missed!
+      impulse->impulse(*this);
    }
 }
 
@@ -177,20 +201,25 @@ void Standard::advance()
  *********************************************/
 void Floater::advance()
 {
-   // large amount of drag
-   v *= 0.990;
+   //// large amount of drag
+   //v *= 0.990;
 
-   // inertia
-   pt.add(v);
+   //// inertia
+   //pt.add(v);
 
-   // anti-gravity
-   v.addDy(0.05);
+   //// anti-gravity
+   //v.addDy(0.05);
 
-   // out of bounds checker
-   if (isOutOfBounds())
+   //// out of bounds checker
+   //if (isOutOfBounds())
+   //{
+   //   kill();
+   //   points *= -1; // points go negative when it is missed!
+   //}
+
+   for (auto impulse : impulses)
    {
-      kill();
-      points *= -1; // points go negative when it is missed!
+      impulse->impulse(*this);
    }
 }
 
@@ -200,21 +229,26 @@ void Floater::advance()
  *********************************************/
 void Crazy::advance()
 {
-   // erratic turns eery half a second or so
-   if (randomInt(0, 15) == 0)
-   {
-      v.addDy(randomFloat(-1.5, 1.5));
-      v.addDx(randomFloat(-1.5, 1.5));
-   }
+   //// erratic turns eery half a second or so
+   //if (randomInt(0, 15) == 0)
+   //{
+   //   v.addDy(randomFloat(-1.5, 1.5));
+   //   v.addDx(randomFloat(-1.5, 1.5));
+   //}
 
-   // inertia
-   pt.add(v);
+   //// inertia
+   //pt.add(v);
 
-   // out of bounds checker
-   if (isOutOfBounds())
+   //// out of bounds checker
+   //if (isOutOfBounds())
+   //{
+   //   kill();
+   //   points *= -1; // points go negative when it is missed!
+   //}
+
+   for (auto impulse : impulses)
    {
-      kill();
-      points *= -1; // points go negative when it is missed!
+      impulse->impulse(*this);
    }
 }
 
@@ -224,17 +258,22 @@ void Crazy::advance()
  *********************************************/
 void Sinker::advance()
 {
-   // gravity
-   v.addDy(-0.07);
+   //// gravity
+   //v.addDy(-0.07);
 
-   // inertia
-   pt.add(v);
+   //// inertia
+   //pt.add(v);
 
-   // out of bounds checker
-   if (isOutOfBounds())
+   //// out of bounds checker
+   //if (isOutOfBounds())
+   //{
+   //   kill();
+   //   points *= -1; // points go negative when it is missed!
+   //}
+
+   for (auto impulse : impulses)
    {
-      kill();
-      points *= -1; // points go negative when it is missed!
+      impulse->impulse(*this);
    }
 }
 

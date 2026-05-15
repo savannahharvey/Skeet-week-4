@@ -9,6 +9,10 @@
 
 #pragma once
 #include "position.h"
+#include "ApplyImpulse.h"
+#include <list>
+
+class ApplyImpulse;
 
 /**********************
  * BIRD
@@ -23,6 +27,7 @@ protected:
    double radius;             // the size (radius) of the flyer
    bool dead;                 // is this flyer dead?
    int points;                // how many points is this worth?
+   std::list<ApplyImpulse*> impulses;
    
 public:
    Bird() : dead(false), points(0), radius(1.0) { }
@@ -32,6 +37,8 @@ public:
    void operator=(const Velocity & rhs) { v = rhs;     }
    void kill()                          { dead = true; }
    void setPoints(int pts)              { points = pts;}
+	void setPosition(const Position& newPt) { pt = newPt; }
+	void setVelocity(const Velocity& newV) { v = newV; }
 
    // getters
    bool isDead()           const { return dead;   }
