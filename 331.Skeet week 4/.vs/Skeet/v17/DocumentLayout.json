@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\bird.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:bird.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\bird.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:bird.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\bird.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|solutionrelative:bird.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F7BB2D43-EBB3-4D58-9064-6E74A18316D7}|Skeet.vcxproj|C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\skeet.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -25,7 +25,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Bookmark",
@@ -61,8 +61,7 @@
               "RelativeToolTip": "..\\.gitignore",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAADAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2026-05-13T05:57:22.724Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-13T05:57:22.724Z"
             },
             {
               "$type": "Document",
@@ -79,26 +78,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "bird.cpp",
               "DocumentMoniker": "C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\bird.cpp",
               "RelativeDocumentMoniker": "bird.cpp",
               "ToolTip": "C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\bird.cpp",
               "RelativeToolTip": "bird.cpp",
-              "ViewState": "AgIAAIMAAAAAAAAAAAAAAJUAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAGEAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2026-05-13T05:16:06.61Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "bird.h",
               "DocumentMoniker": "C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\bird.h",
               "RelativeDocumentMoniker": "bird.h",
               "ToolTip": "C:\\Users\\lando\\Classes\\CSE 331\\teamSkeetCodebase\\teamSkeetCodebase\\331.Skeet week 4\\bird.h",
               "RelativeToolTip": "bird.h",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAAABIAAAACAAAAAAAAAA==",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAAAG4AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2026-05-13T05:15:58.907Z",
               "EditorCaption": ""
