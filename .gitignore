@@ -1,0 +1,40 @@
+# ==========================================
+# Visual Studio 2022 & C++ .gitignore
+# ==========================================
+
+# Visual Studio cache/options directory
+.vs/
+
+# User-specific settings 
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.vcxproj.user
+
+# Compiled binaries and build outputs (Git is for source code, not compiled programs)
+*.exe
+*.dll
+*.lib
+*.obj
+*.o
+*.out
+*.app
+
+# Build folders (where VS puts the compiled outputs)
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]in/
+[Oo]bj/
+
+# C++ Compiler and Linker temporary files
+*.pdb    # Program database (debugging symbols)
+*.ilk    # Incremental linker memory
+*.aps    # Resource file cache
+*.pch    # Precompiled header files
+*.ipch   # Intellisense precompiled headers
+*.tlog   # Build log files
+*.iobj
+*.ipdb

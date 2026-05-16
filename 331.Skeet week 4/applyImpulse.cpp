@@ -7,7 +7,6 @@
  *    Parent class for the decorator pattern that applies an impulse to a bird's velocity
  ************************************************************************/
 
-#pragma once
 #include "position.h"
 #include "ApplyImpulse.h"
 #include "bird.h"
@@ -16,9 +15,9 @@
 
 
 /******************************************************************
-* IMPULSE
-* These functions wrap the bird advance function.
-****************************************************************/
+ * APPLY INERTIA IMPULSE
+ * Moves the bird forward based on its current velocity
+ ****************************************************************/
 void ApplyInertia::impulse(Bird& bird)
 {
 	Velocity v = bird.getVelocity();
@@ -28,21 +27,21 @@ void ApplyInertia::impulse(Bird& bird)
 }
 
 /******************************************************************
-* IMPULSE
-* These functions wrap the bird advance function.
-****************************************************************/
+ * APPLY GRAVITY IMPULSE
+ * Pulls the bird downward by reducing vertical velocity
+ ****************************************************************/
 void ApplyGravity::impulse(Bird& bird)
 {
 	Velocity v = bird.getVelocity();
-	v.addDy(-0.04);
+	v.addDy(-0.07);
 	bird.setVelocity(v);
 }
 
 /******************************************************************
-* IMPULSE
-* These functions wrap the bird advance function.
-******************************************************************/
-void ApplyBouyancy::impulse(Bird& bird)
+ * APPLY BUOYANCY IMPULSE
+ * Pushes the bird upward by increasing vertical velocity
+ ****************************************************************/
+void ApplyBuoyancy::impulse(Bird& bird)
 {
 	Velocity v = bird.getVelocity();
 	v.addDy(0.05);
@@ -50,20 +49,31 @@ void ApplyBouyancy::impulse(Bird& bird)
 }
 
 /******************************************************************
-* IMPULSE
-* These functions wrap the bird advance function.
-*******************************************************************/
-void ApplyDrag::impulse(Bird& bird)
+ * APPLY DRAG LIGHT IMPULSE
+ * Applies a small amount of drag to slow the bird slightly
+ ****************************************************************/
+void ApplyDragLight::impulse(Bird& bird)
 {
 	Velocity v = bird.getVelocity();
-	v *= 0.99;
+	v *= 0.995;
 	bird.setVelocity(v);
 }
 
-/*************************************************
-* IMPULSE
-* These functions wrap the bird advance function.
-***************************************/
+/******************************************************************
+ * APPLY DRAG HEAVY IMPULSE
+ * Applies a large amount of drag to slow the bird significantly
+ ****************************************************************/
+void ApplyDragHeavy::impulse(Bird& bird)
+{
+	Velocity v = bird.getVelocity();
+	v *= 0.990;
+	bird.setVelocity(v);
+}
+
+/******************************************************************
+ * APPLY TURN IMPULSE
+ * Randomly changes the bird's direction every half second or so
+ ****************************************************************/
 void ApplyTurn::impulse(Bird& bird)
 {
 	if ((rand() % 16) == 0)

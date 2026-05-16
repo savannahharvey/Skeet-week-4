@@ -71,8 +71,8 @@ double randomFloat(double min, double max)
 Standard::Standard(double radius, double speed, int points) : Bird()
 {
 	// Add impulses for inertia and drag
-	impulses.push_back(new ApplyInertia());
-	impulses.push_back(new ApplyDrag());
+   addImpulse(DRAG_LIGHT);  // v *= 0.995
+   addImpulse(INERTIA);     // pt.add(v)
 
    // set the position: standard birds start from the middle
    pt.setY(randomFloat(dimensions.getY() * 0.25, dimensions.getY() * 0.75));
@@ -94,11 +94,10 @@ Standard::Standard(double radius, double speed, int points) : Bird()
  ******************************************************************/
 Floater::Floater(double radius, double speed, int points) : Bird()
 {
-	// Add impulses for bouyancy and drag
-	impulses.push_back(new ApplyBouyancy());
-	impulses.push_back(new ApplyDrag());
-   impulses.push_back(new ApplyDrag());
-	impulses.push_back(new ApplyInertia());
+	// Add impulses for buoyancy and drag
+   addImpulse(DRAG_HEAVY);  // v *= 0.990
+   addImpulse(INERTIA);     // pt.add(v)
+   addImpulse(BUOYANCY);    // v.addDy(0.05)
    
    // floaters start on the lower part of the screen because they go up with time
    pt.setY(randomFloat(dimensions.getY() * 0.01, dimensions.getY() * 0.5));
@@ -121,8 +120,8 @@ Floater::Floater(double radius, double speed, int points) : Bird()
 Sinker::Sinker(double radius, double speed, int points) : Bird()
 {
 	// Add impulse for gravity
-	impulses.push_back(new ApplyGravity());
-	impulses.push_back(new ApplyInertia());
+   addImpulse(GRAVITY);     // v.addDy(-0.07)
+   addImpulse(INERTIA);     // pt.add(v)
 
    // sinkers start on the upper part of the screen because they go down with time
    pt.setY(randomFloat(dimensions.getY() * 0.50, dimensions.getY() * 0.95));
@@ -145,8 +144,8 @@ Sinker::Sinker(double radius, double speed, int points) : Bird()
 Crazy::Crazy(double radius, double speed, int points) : Bird()
 {
 	// Add impulse for inertia
-	impulses.push_back(new ApplyInertia());
-	impulses.push_back(new ApplyTurn());
+   addImpulse(TURN);        // random direction changes
+   addImpulse(INERTIA);     // pt.add(v)
    
    
    // crazy birds start in the middle and can go any which way
@@ -164,6 +163,36 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
    this->radius = radius;
 }
 
+
+/*********************************************
+ * BIRD ADD IMPULSE
+ * Factory method to add impulses for bird
+ *********************************************/
+void Bird::addImpulse(ImpulseType type)
+{
+   switch (type)
+   {
+   case INERTIA:    
+      impulses.push_back(new ApplyInertia());    
+      break;
+   case GRAVITY:    
+      impulses.push_back(new ApplyGravity());    
+      break;
+   case BUOYANCY:   
+      impulses.push_back(new ApplyBuoyancy());   
+      break;
+   case DRAG_LIGHT: 
+      impulses.push_back(new ApplyDragLight());  
+      break;
+   case DRAG_HEAVY: 
+      impulses.push_back(new ApplyDragHeavy());  
+      break;
+   case TURN:       
+      impulses.push_back(new ApplyTurn());       
+      break;
+   }
+}
+
  /***************************************************************/
  /***************************************************************/
  /*                            ADVANCE                          */
@@ -171,109 +200,18 @@ Crazy::Crazy(double radius, double speed, int points) : Bird()
  /***************************************************************/
 
 /*********************************************
- * STANDARD ADVANCE
- * How the standard bird moves - inertia and drag
+ * BIRD ADVANCE
+ * Iterates through impulses and checks out of bounds.
  *********************************************/
-void Standard::advance()
+void Bird::advance()
 {
-   //// small amount of drag
-   //v *= 0.995;
-
-   //// inertia
-   //pt.add(v);
-
-   //// out of bounds checker
-   //if (isOutOfBounds())
-   //{
-   //   kill();
-   //   points *= -1; // points go negative when it is missed!
-   //}
-
    for (auto impulse : impulses)
-   {
       impulse->impulse(*this);
-   }
-}
 
-/*********************************************
- * FLOATER ADVANCE
- * How the floating bird moves: strong drag and anti-gravity
- *********************************************/
-void Floater::advance()
-{
-   //// large amount of drag
-   //v *= 0.990;
-
-   //// inertia
-   //pt.add(v);
-
-   //// anti-gravity
-   //v.addDy(0.05);
-
-   //// out of bounds checker
-   //if (isOutOfBounds())
-   //{
-   //   kill();
-   //   points *= -1; // points go negative when it is missed!
-   //}
-
-   for (auto impulse : impulses)
+   if (isOutOfBounds())
    {
-      impulse->impulse(*this);
-   }
-}
-
-/*********************************************
- * CRAZY ADVANCE
- * How the crazy bird moves, every half a second it changes direciton
- *********************************************/
-void Crazy::advance()
-{
-   //// erratic turns eery half a second or so
-   //if (randomInt(0, 15) == 0)
-   //{
-   //   v.addDy(randomFloat(-1.5, 1.5));
-   //   v.addDx(randomFloat(-1.5, 1.5));
-   //}
-
-   //// inertia
-   //pt.add(v);
-
-   //// out of bounds checker
-   //if (isOutOfBounds())
-   //{
-   //   kill();
-   //   points *= -1; // points go negative when it is missed!
-   //}
-
-   for (auto impulse : impulses)
-   {
-      impulse->impulse(*this);
-   }
-}
-
-/*********************************************
- * SINKER ADVANCE
- * How the sinker bird moves, no drag but gravity
- *********************************************/
-void Sinker::advance()
-{
-   //// gravity
-   //v.addDy(-0.07);
-
-   //// inertia
-   //pt.add(v);
-
-   //// out of bounds checker
-   //if (isOutOfBounds())
-   //{
-   //   kill();
-   //   points *= -1; // points go negative when it is missed!
-   //}
-
-   for (auto impulse : impulses)
-   {
-      impulse->impulse(*this);
+      kill();
+      points *= -1;
    }
 }
 

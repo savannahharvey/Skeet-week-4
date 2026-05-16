@@ -8,10 +8,21 @@
  ************************************************************************/
 
 #pragma once
-class Bird;
+
 #include "position.h"
-#include "bird.h"
 #include <list>
+
+class Bird;
+
+enum ImpulseType
+{
+	INERTIA,
+	GRAVITY,
+	BUOYANCY,
+	DRAG_LIGHT,
+	DRAG_HEAVY,
+	TURN
+};
 
 /**********************
  * ApplyImpulse
@@ -30,7 +41,7 @@ public:
 class ApplyInertia : public ApplyImpulse
 {
 public:
-	virtual void impulse(Bird& bird);
+	void impulse(Bird& bird);
 };
 
 /**********************
@@ -40,27 +51,37 @@ public:
 class ApplyGravity : public ApplyImpulse
 {
 public:
-	virtual void impulse(Bird& bird);
+	void impulse(Bird& bird);
 };
 
 /**********************
- * ApplyBouyancy
+ * ApplyBuoyancy
  * Concrete decorator for the advance() method of a bird
  **********************/
-class ApplyBouyancy : public ApplyImpulse
+class ApplyBuoyancy : public ApplyImpulse
 {
 public:
-	virtual void impulse(Bird& bird);
+	void impulse(Bird& bird);
 };
 
 /**********************
- * ApplyDrag
+ * ApplyDragLight
  * Concrete decorator for the advance() method of a bird
  **********************/
-class ApplyDrag : public ApplyImpulse
+class ApplyDragLight : public ApplyImpulse  // 0.995 for Standard
 {
 public:
-	virtual void impulse(Bird& bird);
+	void impulse(Bird& bird);
+};
+
+/**********************
+ * ApplyDragHeavy
+ * Concrete decorator for the advance() method of a bird
+ **********************/
+class ApplyDragHeavy : public ApplyImpulse  // 0.990 for Floater
+{
+public:
+	void impulse(Bird& bird);
 };
 
 /**********************
@@ -70,5 +91,5 @@ public:
 class ApplyTurn : public ApplyImpulse
 {
 public:
-	virtual void impulse(Bird& bird);
+	void impulse(Bird& bird);
 };
